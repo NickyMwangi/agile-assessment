@@ -1,0 +1,98 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+- staging
+- production
+
+variables:
+# - group: common-variables # Variables common to all environments
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/main') }}:
+  - group: dev-variable-group
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/staging') }}:
+  - group: uat-variable-group
+- ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/production') }}:
+  - group: production-variables
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '18.x'
+      displayName: 'Install Node.js'
+
+    - script: |
+        npm install
+        npm run build
+      displayName: 'Yarn install and build'
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: 'build'
+        artifact: 'drop'
+        publishLocation: 'pipeline'
+
+
+- stage: DeployDev
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'dev-contracts-manager'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              appType: webApp
+              azureSubscription: 'TWG-DEV-TEST-PIPELINE'
+              appName: 'contracts-manager-dev'
+              package: '$(Pipeline.Workspace)/drop'
+
+- stage: DeployStaging
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/staging')
+  jobs:
+  - deployment: DeployJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'uat-contracts-manager'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              appType: webApp
+              azureSubscription: 'TWG-DEV-TEST-PIPELINE'
+              appName: 'contracts-manager-uat'
+              package: '$(Pipeline.Workspace)/drop'
+
+- stage: DeployProduction
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/production'))
+  jobs:
+  - deployment: DeployJob
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'production-contracts-manager'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            inputs:
+              appType: webApp
+              azureSubscription: 'Pay-As-You-Go Dev/Test'
+              appName: 'Your-Production-App-Service-Name'
+              package: '$(Pipeline.Workspace)/drop'
+
+

@@ -24,3 +24,7 @@ To run the project
     `npm run dev`
 
   to run the project and open the project from `http://localhost:5050/`
+
+  ## CI/CD Pipelines
+
+  The are set of automated processes than manage the build, test, deployment and monitoring of code changes. Some of the tools I can use for this are Azure DevOps and Docker. I have used Sonar Cloud for running tests. For this project I have added a .yml file for deploying the project to Test, Staging and production environments.
