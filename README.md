@@ -1,6 +1,6 @@
 # Reack-Assessment
 
-I have developed the project using React 18.3.2. React is ligher to work with on such a small task compared Angular and that's why I preferred using it to Angular.
+I have developed the project using React 18.3.2. React is ligher to work with on such a small task compared to Angular and that's why I preferred using it to Angular. I have used taiwindCSS because it easier to use than bootstrap or material and also it manages dark mode better.
 
 Packages I am using in the project are;
 
