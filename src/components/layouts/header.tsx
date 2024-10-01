@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-export const Header = () => {
+type dark = {
+  darkMode: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setDarkMode: any;
+};
+
+export const Header = ({ darkMode, setDarkMode }: dark) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const togleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const toggleNavbar = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -11,9 +21,9 @@ export const Header = () => {
   const NavLinks = () => {
     return (
       <>
-        <NavLink to={"/"}>Home</NavLink>
-        <NavLink to={"/"}>Home</NavLink>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink className="dark:text-white" to={"/"}>
+          Home
+        </NavLink>
       </>
     );
   };
@@ -27,8 +37,17 @@ export const Header = () => {
         <div className="flex justify-between">
           <NavLinks />
         </div>
+        <button
+          onClick={togleDarkMode}
+          className="rounded-full absolute w-16 h-16 bottom-16 right-16 bg-black dark:bg-white text-white dark:text-black font-semibold"
+        >
+          {darkMode ? "Toggle Light" : "Toggle Dark"}
+        </button>
         <div>
-          <button onClick={toggleNavbar} className="rounded-full"></button>
+          <button
+            onClick={toggleNavbar}
+            className="rounded-full bg-blue-400"
+          ></button>
         </div>
       </nav>
 
