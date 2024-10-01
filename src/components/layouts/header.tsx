@@ -33,13 +33,13 @@ export const Header = ({ darkMode, setDarkMode }: dark) => {
       <div className="logo h-16 w-16">
         <img src="/logo.svg" alt="Logo" />
       </div>
-      <nav className="w-1/3">
+      <nav className="w-1/3 ">
         <div className="flex justify-between">
           <NavLinks />
         </div>
         <button
           onClick={togleDarkMode}
-          className="rounded-full absolute w-16 h-16 bottom-16 right-16 bg-black dark:bg-white text-white dark:text-black font-semibold"
+          className="rounded-full absolute w-16 h-16 bottom-16 right-16 bg-black dark:bg-white text-white dark:text-black font-semibold mt-2"
         >
           {darkMode ? "Toggle Light" : "Toggle Dark"}
         </button>

@@ -30,19 +30,19 @@ export const Counter = () => {
           Count: {count}
         </h1>
         <button
-          className="rounded-md bg-blue-500 p-2 m-1 "
+          className="rounded-md bg-blue-500 p-2 m-1 text-black dark:text-white font-semibold"
           onClick={() => setCount(count + 1)}
         >
           Increment
         </button>
         <button
-          className="rounded-md bg-red-500 p-2 m-1"
+          className="rounded-md bg-red-500 p-2 m-1 text-black dark:text-white font-semibold"
           onClick={() => setCount(count - 1)}
         >
           Decrement
         </button>
         <button
-          className="rounded-md bg-teal-500 p-2 m-1"
+          className="rounded-md bg-teal-500 p-2 m-1 text-black dark:text-white font-semibold"
           onClick={() => setCount(0)}
         >
           Reset
