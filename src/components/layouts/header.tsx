@@ -21,8 +21,17 @@ export const Header = ({ darkMode, setDarkMode }: dark) => {
   const NavLinks = () => {
     return (
       <>
-        <NavLink className="dark:text-white" to={"/"}>
+        <NavLink
+          className="dark:text-white mr-4 hover:bg-teal-300 p-3 rounded-md"
+          to={"/"}
+        >
           Home
+        </NavLink>
+        <NavLink
+          className="dark:text-white hover:bg-teal-300  p-3 rounded-md"
+          to={"/counter"}
+        >
+          Counter
         </NavLink>
       </>
     );
@@ -33,17 +42,18 @@ export const Header = ({ darkMode, setDarkMode }: dark) => {
       <div className="logo h-16 w-16">
         <img src="/logo.svg" alt="Logo" />
       </div>
-      <nav className="w-1/3 ">
-        <div className="flex justify-between">
+      <nav className="w-1/4">
+        <div className="flex justify-start">
           <NavLinks />
         </div>
-        <button
-          onClick={togleDarkMode}
-          className="rounded-full absolute w-16 h-16 bottom-16 right-16 bg-black dark:bg-white text-white dark:text-black font-semibold mt-2"
-        >
-          {darkMode ? "Toggle Light" : "Toggle Dark"}
-        </button>
+
         <div>
+          <button
+            onClick={togleDarkMode}
+            className="rounded-full absolute w-16 h-16 bottom-16 right-16 bg-black dark:bg-white text-white dark:text-black font-semibold mt-2 p-2"
+          >
+            {darkMode ? "Toggle Light" : "Toggle Dark"}
+          </button>
           <button
             onClick={toggleNavbar}
             className="rounded-full bg-blue-400"

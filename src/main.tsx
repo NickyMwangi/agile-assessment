@@ -1,12 +1,14 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // Tailwind css
 import "./index.css";
 
-import { Counter } from "./components/counter.tsx";
 import App from "./App.tsx";
+import { Home } from "./components/Home.tsx";
+
+const Counter = lazy(() => import("./components/counter.tsx"));
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/counter",
         element: <Counter />,
       },
     ],

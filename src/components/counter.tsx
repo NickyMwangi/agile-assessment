@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Counter = () => {
+export default function Counter() {
   const [count, setCount] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [counterList, setCounterList] = useState<any[]>([]);
@@ -71,4 +71,4 @@ export const Counter = () => {
       </div>
     </div>
   );
-};
+}
